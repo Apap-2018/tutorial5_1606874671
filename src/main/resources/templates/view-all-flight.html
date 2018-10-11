@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>View All Flight</title>
+		<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+		<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	</head>
+	<body>
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+		<form>
+			<input type="button" class="btn btn-danger" value="Back" onclick="history.back()">
+		</form>
+		<div th:if="${not #lists.isEmpty(allFlight)}">
+			<h2>All Flights </h2>
+			<div th:each="flight : ${allFlight}">
+				<p th:text="'Flight ID: ' + ${flight.id}"></p>
+				<p th:text="'Flight Number: ' + ${flight.flightNumber}"></p>
+				<p th:text="'Origin: ' + ${flight.origin}"></p>
+				<p th:text="'Destination: ' + ${flight.destination}"></p>
+				<p th:text="'Time: ' + ${flight.time}"></p>
+				<p th:text="'Pilot Name: ' + ${flight.pilot.getName()}"></p>
+				<p th:text="'Pilot License Number: ' + ${flight.pilot.getLicenseNumber()}"></p>
+				<td><a th:href="@{/flight/update/id/} + ${flight.id}"><button>Update Flight</button></a></td>
+				<td><a th:href="@{/flight/delete/id/} + ${flight.id}"><button>Delete Flight</button></a></td>
+				</br>
+				</br>
+			</div>
+		</div>
+		<div th:if="${ #lists.isEmpty(allFlight)}">
+			<h2>Tidak ada penerbangan yang terjadi</h2>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,29 @@
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>View All Pilot</title>
+		<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+		<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	</head>
+	<body>
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+		<form>
+			<input type="button" class="btn btn-danger" value="Back" onclick="history.back()">
+		</form>
+		<div th:if="${not #lists.isEmpty(allPilot)}">
+			<h2>All Pilots </h2>
+			<div th:each="pilot : ${allPilot}">
+				<p th:text="'Pilot License Number: ' + ${pilot.licenseNumber}"></p>
+				<p th:text="'Name: ' + ${pilot.name}"></p>
+				<p th:text="'FlyHour: ' + ${pilot.flyHour}"></p>
+				<td><a th:href="@{/pilot/update/license-number/} + ${pilot.licenseNumber}"><button>Update Pilot</button></a></td>
+				<td><a th:href="@{/pilot/delete/id/} + ${pilot.id}"><button>Delete pilot</button></a></td>
+				</br>
+				</br>
+			</div>
+		</div>
+		<div th:if="${ #lists.isEmpty(allPilot)}">
+			<h2>Tidak ada pilot yang bertugas</h2>
+		</div>
+	</body>
+</html>
